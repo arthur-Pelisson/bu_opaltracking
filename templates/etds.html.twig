@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="app">
+        <etds :user="{{ user }}" :etds="{{ etds }}" :etd-screen-type="'{{ etdScreenType }}'" :total-count="{{ totalCount }}" >
+            <template v-slot:filter-vendor>
+                {{ knp_pagination_filter(pagination, {'vendorNo': 'vendorNo'}) }}
+            </template>
+            <template v-slot:pagination>
+                {{ knp_pagination_render(pagination) }}
+            </template>
+            <template v-slot:header-etd>
+                <div{% if pagination.isSorted('e.etdDate') %} class="th-inner sortable both desc"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'ETD', 'e.etdDate') }}
+                </div>
+            </template>
+            <template v-slot:header-vendor>
+                <template>
+                    {{ knp_pagination_sortable(pagination, 'Vendor', 'vendorNo') }}
+                </template>
+            </template>
+        </etds>
+    </div>
+{% endblock %}

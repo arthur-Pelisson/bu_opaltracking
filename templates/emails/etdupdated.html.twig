@@ -1,0 +1,17 @@
+<p>{{ title }}</p>
+{% if counters is not null and counters is not empty %}
+        <p>Summary :</p>
+        <ul>
+                {% if counters.countValidateShipByChanged > 0 %}<li>Ship by changed : {{ counters.countValidateShipByChanged }}</li>{% endif %}
+                {% if counters.countValidateETDDateChanged > 0 %}<li>ETD changed : {{ counters.countValidateETDDateChanged }}</li>{% endif %}
+                {% if counters.countValidateQtyChanged > 0 %}<li>Quantity changed : {{ counters.countValidateQtyChanged }}</li>{% endif %}
+                {% if counters.countApprovedChanged > 0 %}<li>Approved : {{ counters.countApprovedChanged }}</li>{% endif %}
+                {% if counters.countRejectedChanged > 0 %}<li>Rejected : {{ counters.countRejectedChanged }}</li>{% endif %}
+        </ul>
+{% endif %}
+{% if message is not null %}
+        <p>Message :</p>
+        <p>{{ message }}</p>
+{% endif %}
+<br />
+<a href="{{ etdUrl }}">View ETD</a>

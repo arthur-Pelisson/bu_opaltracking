@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% set coloredPage = true %}
+{% block stylesheets %}
+<style>
+    label {
+        max-width: 100px;
+        text-align: center;
+    }
+
+    input {
+        max-width: 80%;
+    }
+
+    @media screen and (max-width: 760px) {
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start !important;
+        }
+        .form-group label {
+            max-width: 100%;
+        }
+        .form-group input {
+            max-width: 100%;
+        }
+       
+    }
+</style>
+{% endblock %}
+{% block title %}Reset your password{% endblock %}
+{% block body %}
+    <div style="height: 100vh;" class="d-flex align-items-center">
+        <div class="container" style="min-width:350px">
+            <div class="row justify-content-center">
+                <div class="col-md-10 min-w-sm-50 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                                <h1>Reset your password</h1>
+                                {{ form_start(resetForm) }}
+                            <div id="div-input">
+                                {{ form_row(resetForm.plainPassword) }}
+                                {{ form_row(resetForm._token) }}
+                            </div>
+                                <button class="btn btn-primary">Reset password</button>
+                                {{ form_end(resetForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

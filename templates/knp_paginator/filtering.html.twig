@@ -1,0 +1,17 @@
+<form method="get" action="{{ action }}" enctype="application/x-www-form-urlencoded">
+    {% if fields|length > 1 %}
+        <select name="{{ filterFieldName }}">
+            {% for field, label in fields %}
+                <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}" />
+    {% endif %}
+
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="You can use * for global search : *f*" value="{{ selectedValue }}" name="{{ filterValueName }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-primary" id="button-addon2"><i class="fa fa-search"></i></button>
+    </div>
+</form>
+

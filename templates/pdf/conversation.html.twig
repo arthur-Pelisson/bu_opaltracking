@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Conversation</title>
+    </head>
+    <body>
+        <h1>{{ title }}</h1>
+        {% if messages|length == 0 %}
+            <p>No message</p>
+        {% else %}
+            {% for message in messages %}
+                <div class="wrapper">
+                    <div class="message" style="margin-bottom: 40px">
+                        <div class="tags-list my-1">
+                            {% if message.countApprovedChanged and message.countApprovedChanged > 0 %}
+                                <span class="badge badge-status-etdline-tag-valid">Approved : {{ message.countApprovedChanged }}</span>
+                            {% endif %}
+                            {% if message.countRejectedChanged and message.countRejectedChanged > 0 %}
+                                <span class="badge badge-status-etdline-tag-important"> Rejected : {{ message.countRejectedChanged }}</span>
+                            {% endif %}
+                            {% if message.countValidateShipByChanged and message.countValidateShipByChanged > 0 %}
+                                <span class="badge badge-status-etdline-tag-modified">Ship By Changed : {{ message.countValidateShipByChanged }}</span>
+                            {% endif %}
+                            {% if message.countValidateETDDateChanged and message.countValidateETDDateChanged > 0 %}
+                                <span class="badge badge-status-etdline-tag-modified">ETD Date Changed : {{ message.countValidateETDDateChanged }}</span>
+                            {% endif %}
+                            {% if message.countValidateQtyChanged and message.countValidateQtyChanged > 0 %}
+                                <span class="badge badge-status-etdline-tag-modified"> Qty Changed : {{ message.countValidateQtyChanged }}</span>
+                            {% endif %}
+                        </div>
+                        {% if message.content %}
+                            <p class="message--content" style="margin-bottom: 0">{{ message.content }}</p>
+                        {% endif %}
+                        <div class="message--infos">
+                            <span class="message--infos--code">{{ message.writeByUser.code }}</span>
+                            <span class="message--infos--date">{{ message.dateAdd|date("Y-m-d H:i:s") }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </body>
+</html>

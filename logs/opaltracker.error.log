@@ -1,0 +1,20 @@
+[Wed Nov 20 11:06:56.750131 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Deprecated:  ini_set(): assert.warning INI setting is deprecated in /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php on line 34
+[Wed Nov 20 11:06:56.750235 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Stack trace:
+[Wed Nov 20 11:06:56.750241 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   1. {main}() /home/luci/projects/opaltracking/public/index.php:0
+[Wed Nov 20 11:06:56.750243 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   2. Symfony\\Component\\ErrorHandler\\Debug::enable() /home/luci/projects/opaltracking/public/index.php:15
+[Wed Nov 20 11:06:56.750253 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   3. ini_set($option = 'assert.warning', $value = 0) /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php:34
+[Wed Nov 20 11:06:56.964577 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Deprecated:  ini_set(): assert.warning INI setting is deprecated in /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php on line 34
+[Wed Nov 20 11:06:56.964618 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Stack trace:
+[Wed Nov 20 11:06:56.964621 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   1. {main}() /home/luci/projects/opaltracking/public/index.php:0
+[Wed Nov 20 11:06:56.964623 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   2. Symfony\\Component\\ErrorHandler\\Debug::enable() /home/luci/projects/opaltracking/public/index.php:15
+[Wed Nov 20 11:06:56.964626 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   3. ini_set($option = 'assert.warning', $value = 0) /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php:34
+[Wed Nov 20 11:06:57.119222 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Deprecated:  ini_set(): assert.warning INI setting is deprecated in /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php on line 34, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.119400 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Stack trace:, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.119424 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   1. {main}() /home/luci/projects/opaltracking/public/index.php:0, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.119431 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   2. Symfony\\Component\\ErrorHandler\\Debug::enable() /home/luci/projects/opaltracking/public/index.php:15, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.119439 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   3. ini_set($option = 'assert.warning', $value = 0) /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php:34, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.183945 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Deprecated:  ini_set(): assert.warning INI setting is deprecated in /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php on line 34, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.183992 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP Stack trace:, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.183996 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   1. {main}() /home/luci/projects/opaltracking/public/index.php:0, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.183998 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   2. Symfony\\Component\\ErrorHandler\\Debug::enable() /home/luci/projects/opaltracking/public/index.php:15, referer: http://opaltracking.local/login
+[Wed Nov 20 11:06:57.184002 2024] [php:notice] [pid 53168] [client 172.27.112.1:59831] PHP   3. ini_set($option = 'assert.warning', $value = 0) /home/luci/projects/opaltracking/vendor/symfony/error-handler/Debug.php:34, referer: http://opaltracking.local/login

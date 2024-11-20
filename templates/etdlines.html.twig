@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="app">
+        <etd-lines :user="{{ user }}" :etd="{{ etd }}" :etd-lines="{{ etdLines }}"
+                   :qty-modified-to-create-partial="{{ qtyModifiedToCreatePartial }}"
+                   :conversations-count="{{ conversationsCount }}" :is-read-only="{{ isReadOnly }}" :vendor-no="'{{ vendorNo }}'" :etd-conversation-count="{{ etdConversationCount }}">
+        </etd-lines>
+    </div>
+{% endblock %}
