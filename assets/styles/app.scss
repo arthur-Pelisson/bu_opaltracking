@@ -403,7 +403,7 @@ nav {
   }
 
   &.btn-action {
-    font-size: 20px;
+    font-size: 15px;
     padding: .35rem .25rem;
   }
 
@@ -690,5 +690,11 @@ input {
         padding-right: 1.25rem;
       }
     }
+  }
+}
+// make item cell selectable for etdTable
+.etdTable {
+  .item-cell-inner:nth-child(n+2) {
+    pointer-events: none;
   }
 }

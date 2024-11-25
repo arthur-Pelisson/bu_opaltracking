@@ -25,42 +25,42 @@
                         </b-row>
                         </div>
                         <b-row>
-                            <b-col md="12">
+                            <b-col md="12" class="etdTable">
                                 <vue-virtual-table
                                     class="etd-table"
                                     :config="fields"
                                     :data="etdsData"
                                     :height="heightTable"
                                     :itemHeight="75"
-                                    :minWidth="1000"
+                                    :minWidth="1100"
                                     :enableExport="false"
                                     language="en"
-                                    :selectable="true"
+                                    :selectable="false"
                                 >
-                                    <template slot-scope="scope" slot="actionsSlot" >
-                                          <b-button-group class="actions">
-                                            <button v-if="scope.row.countMessages > 0" class="btn btn-hover btn-action" v-b-tooltip.hover
-                                                    v-on:click="openModal(scope.row)" title="ETD conversation"><i
-                                                class="fas fa-comments"></i></button>
-                                            <button v-else class="btn btn-hover btn-action" v-on:click="openModal(scope.row)" title="ETD conversation"><i
-                                                class="far fa-comment"></i></button>
-                                            <button class="btn btn-hover btn-action" title="Close ETD" v-b-tooltip.hover
-                                                  v-if="isUserPurchaser() && scope.row.status !== 'CLOSED'"
-                                                  v-on:click="openETDCloseModal(scope.row)"><i
-                                                class="fas fa-lock"></i></button>
-                                            <button class="btn btn-hover btn-action" title="Open ETD" v-b-tooltip.hover
-                                                  v-else-if="isUserPurchaser() && scope.row.status === 'CLOSED'"
-                                                  v-on:click="openETDOpenModal(scope.row)"><i
-                                                class="fas fa-lock-open"></i></button>
-                                            <button class="btn btn-hover btn-action" title="ETD documents" v-b-tooltip.hover
-                                                  v-on:click="openETDFilesModal(scope.row)"><i
-                                                class="fas fa-file"></i></button>
-                                              <button class="btn btn-hover btn-action" title="Export as CSV" v-b-tooltip.hover v-on:click="exportETD(scope.row)"><i
-                                                  class="far fa-file-excel"></i></button>
-                                            <button class="btn btn-hover btn-action" title="Show ETDLines" v-b-tooltip.hover
-                                                  v-on:click="redirectToETDLines(scope.row.id)"><i
-                                                class="fas fa-eye"></i></button>
-                                          </b-button-group>
+                                    <template slot-scope="scope" slot="actionsSlot" class="testtt" >
+                                            <b-button-group class="actions">
+                                              <button v-if="scope.row.countMessages > 0" class="btn btn-hover btn-action" v-b-tooltip.hover
+                                                      v-on:click="openModal(scope.row)" title="ETD conversation"><i
+                                                  class="fas fa-comments"></i></button>
+                                              <button v-else class="btn btn-hover btn-action" v-on:click="openModal(scope.row)" title="ETD conversation"><i
+                                                  class="far fa-comment"></i></button>
+                                              <button class="btn btn-hover btn-action" title="Close ETD" v-b-tooltip.hover
+                                                    v-if="isUserPurchaser() && scope.row.status !== 'CLOSED'"
+                                                    v-on:click="openETDCloseModal(scope.row)"><i
+                                                  class="fas fa-lock"></i></button>
+                                              <button class="btn btn-hover btn-action" title="Open ETD" v-b-tooltip.hover
+                                                    v-else-if="isUserPurchaser() && scope.row.status === 'CLOSED'"
+                                                    v-on:click="openETDOpenModal(scope.row)"><i
+                                                  class="fas fa-lock-open"></i></button>
+                                              <button class="btn btn-hover btn-action" title="ETD documents" v-b-tooltip.hover
+                                                    v-on:click="openETDFilesModal(scope.row)"><i
+                                                  class="fas fa-file"></i></button>
+                                                <button class="btn btn-hover btn-action" title="Export as CSV" v-b-tooltip.hover v-on:click="exportETD(scope.row)"><i
+                                                    class="far fa-file-excel"></i></button>
+                                              <button class="btn btn-hover btn-action" title="Show ETDLines" v-b-tooltip.hover
+                                                    v-on:click="redirectToETDLines(scope.row.id)"><i
+                                                  class="fas fa-eye"></i></button>
+                                            </b-button-group>
                                     </template>
                                     <template slot-scope="scope" slot="etdDateSlot">
                                         <div style="white-space: nowrap; font-size:14px" :data-id="scope.row.id">{{ scope.row.etdDate |formatDate }}</div>

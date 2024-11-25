@@ -605,6 +605,7 @@ export default {
         isReadOnly: {type: Boolean, required: true},
         vendorNo: {type: String, required: true},
         etdConversationCount: {type: Number, required: true},
+        previousePage: {type: String, required: true},
     },
     data() {
         return {
@@ -680,6 +681,7 @@ export default {
     mounted() {
         this.initTable();
         this.calculateHeightTable();
+        console.log(this.previousePage);
     },
     created() {
         window.addEventListener("resize", this.calculateHeightTable);
@@ -1267,7 +1269,14 @@ export default {
 
         //region Cancel updates
         returnPreviousPage() {
-            window.location.href = '/';
+            let currentUrl = window.location.href;
+            let tmpUrl = currentUrl.split('/');
+            let previousePage = this.previousePage.split('/');
+            if (tmpUrl[2] !== previousePage[2]) {
+                return window.location.href = "/";
+            }
+            window.location.href = this.previousePage;
+            
         },
         validateCancelChanges() {
             this.cleanLocalStorage();

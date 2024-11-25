@@ -3,7 +3,7 @@
         <MenuBar :user="this.user"/>
         <ETDLineTable :etd="this.etd" :etd-lines="this.etdLines" :user="this.user"
                       :qty-modified-to-create-partial="this.qtyModifiedToCreatePartial"
-                      :conversations-count="this.conversationsCount" :is-read-only="this.isReadOnly" :vendor-no="this.vendorNo" :etd-conversation-count="this.etdConversationCount"/>
+                      :conversations-count="this.conversationsCount" :is-read-only="this.isReadOnly" :vendor-no="this.vendorNo" :etd-conversation-count="this.etdConversationCount" :previousePage="previousPage" />
     </div>
 </template>
 
@@ -27,6 +27,12 @@ export default {
         isReadOnly: {type: Boolean, required: true},
         vendorNo: {type: String, required: true},
         etdConversationCount: {type: Number, required: true},
+    },
+    computed: {
+        previousPage() {
+        return document.referrer;  // Retourne l'URL de la page précédente
     }
+  }
 }
+
 </script>
