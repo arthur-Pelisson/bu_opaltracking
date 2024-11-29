@@ -79,7 +79,7 @@ class TestController extends CustomAPIController
     }
 
     /**
-     * @Route("/conversation/download", name="conv_download", methods={"GET"})
+     * @Route("/conversation/download/{etdId}", name="conv_download", methods={"GET"})
      * @param ETDService $etdService
      * @param ConversationService $conversationService
      * @param Request $request
@@ -88,7 +88,8 @@ class TestController extends CustomAPIController
      */
     public function conversationDownload(ETDService $etdService, ConversationService $conversationService, Request $request, Pdf $knpSnappyPdf)
     {
-        $etdId = 111;
+
+        $etdId = $request->get('etdId');
         try {
             $messages = $conversationService->getConversationMessagesByETDId($etdId);
             $etd = $etdService->findETDById($etdId);
@@ -105,7 +106,7 @@ class TestController extends CustomAPIController
             $filename = 'test';
             return new Response(
                 $pdf,
-                200,
+                Response::HTTP_OK,
                 array(
                     'Content-Type'          => 'application/pdf',
                     'Content-Disposition'   => 'attachment; filename="'.$filename.'.pdf"'
@@ -117,7 +118,7 @@ class TestController extends CustomAPIController
     }
 
     /**
-     * @Route("/export/csv", name="export_csv", methods={"GET"})
+     * @Route("/export/csv/{id}", name="export_csv", methods={"GET"})
      * @param ETDService $etdService
      * @param ETDLineService $etdLineService
      * @param UserRepository $userRepository
@@ -126,8 +127,9 @@ class TestController extends CustomAPIController
      */
     public function exportCSV(ETDService $etdService, ETDLineService $etdLineService, UserRepository $userRepository, Request $request): Response
     {
+        $id = $request->get('id');
         try {
-            $etd = $etdService->findETDById(98);
+            $etd = $etdService->findETDById($id);
             $user = $userRepository->findOneBy(['code' => 'PBELIN']);
             $testCsv = $etdLineService->getETDLinesAsCSV($etd, $user);
             return new Response(null, Response::HTTP_OK);
@@ -147,11 +149,11 @@ class TestController extends CustomAPIController
      */
     public function emailTest(MailerService $mailerService, Request $request, UrlGeneratorInterface $urlGeneratorInterface): Response
     {
-        // $bodyData = $request->toArray();
-        // $email = $bodyData["emailTo"];
+        $bodyData = $request->toArray();
+        $email = $bodyData["emailTo"];
 
         try {
-            $mailerService->testMail('opaltracking@opal.fr', "pelisson.arthur@gmail.com", 'opaltracking@opal.fr');
+            $mailerService->testMail('opaltracking@opal.fr', $email, 'opaltracking@opal.fr');
             return new Response(null, Response::HTTP_OK);
         } catch (Exception $e) {
             return new JsonResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -233,11 +235,11 @@ class TestController extends CustomAPIController
         $EtdsId = $request->toArray();
 
         try {
-            $tag1 = $ETDLineTagRepository->find($EtdsId[0]);
+            $tag1 = $ETDLineTagRepository->find($EtdsId);
             $tag1->setEtdChanged(true);
-            $tag2 = $ETDLineTagRepository->find($EtdsId[1]);
+            $tag2 = $ETDLineTagRepository->find($EtdsId);
             $tag2->setShipByChanged(true);
-            $tag3 = $ETDLineTagRepository->find($EtdsId[2]);
+            $tag3 = $ETDLineTagRepository->find($EtdsId);
             $tag3->setQtyChanged(true);
 
             $this->_entityManager->flush();

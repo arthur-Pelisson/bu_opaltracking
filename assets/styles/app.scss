@@ -7,7 +7,7 @@ body {
   background-color: $background-color;
   margin: 0;
   font-family: "Roboto", serif;
-  min-width: 360px;
+  min-width: 400px;
 
   h1 {
     font-size: 28px;
@@ -37,8 +37,12 @@ nav {
     }
 
     .navbar-nav {
+      // .dropdown {
+        //     flex-direction: column !important;
+        //   }
       .dropdown-menu {
         border-radius: 20px;
+        position: absolute;
 
         li {
           a {
@@ -50,7 +54,7 @@ nav {
       .notifications {
         .dropdown-menu {
           padding: 0.5rem;
-          min-width: 25rem;
+          min-width: 21rem;
         }
 
         &--list {
@@ -106,7 +110,7 @@ nav {
     align-items: center;
     justify-content: center;
     background: $background-color;
-    position: absolute;
+    // position: absolute;
     bottom: 5px;
     width: 90%;
       min-width: 320px;
@@ -403,7 +407,7 @@ nav {
   }
 
   &.btn-action {
-    font-size: 15px;
+    font-size: 22px;
     padding: .35rem .25rem;
   }
 
@@ -693,8 +697,11 @@ input {
   }
 }
 // make item cell selectable for etdTable
-.etdTable {
-  .item-cell-inner:nth-child(n+2) {
+.removeactions {
     pointer-events: none;
-  }
+}
+.modal-backdrop,
+.b-sidebar-backdrop {
+  min-width: 400px !important;
+  min-height: -webkit-fill-available !important;
 }

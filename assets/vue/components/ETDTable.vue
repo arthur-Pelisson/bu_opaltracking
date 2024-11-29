@@ -1,72 +1,67 @@
 <template>
     <div>
-        <b-container fluid class="text-left">
+        <b-container fluid class="text-left container-etdTable">
             <b-row>
                 <b-col>
                     <b-card no-body class="my-3 content-card-wrapper">
                         <div id="etdlinesCardHeader">
-                        <b-row class="my-3">
-                            <b-col md="12">
-                                <h1>{{ getTitle() }}</h1>
-                            </b-col>
-                        </b-row>
-                        <b-row class="action-bar mb-3">
-                            <b-col md="auto" class="search-filters">
-                                <slot v-if="user.type === 'PURCHASER'" name="filter-vendor"></slot>
-                            </b-col>
-                            <b-col md="auto" h-align="right" class="text-right">
-<!--                                <button class="btn btn-secondary search-filters&#45;&#45;button btn-icon"><i-->
-<!--                                    class="fas fa-file-download"></i> Import-->
-<!--                                </button>-->
-<!--                                <button class="btn btn-secondary search-filters&#45;&#45;button btn-icon"><i-->
-<!--                                    class="far fa-file-excel"></i> Export-->
-<!--                                </button>-->
-                            </b-col>
-                        </b-row>
+                            <b-row class="my-3">
+                                <b-col md="12">
+                                    <h1>{{ getTitle() }}</h1>
+                                </b-col>
+                            </b-row>
+                            <b-row class="action-bar mb-3">
+                                <b-col md="auto" class="search-filters">
+                                    <slot v-if="user.type === 'PURCHASER'" name="filter-vendor"></slot>
+                                </b-col>
+                                <b-col md="auto" h-align="right" class="text-right">
+                                    <!--                                <button class="btn btn-secondary search-filters&#45;&#45;button btn-icon"><i-->
+                                    <!--                                    class="fas fa-file-download"></i> Import-->
+                                    <!--                                </button>-->
+                                    <!--                                <button class="btn btn-secondary search-filters&#45;&#45;button btn-icon"><i-->
+                                    <!--                                    class="far fa-file-excel"></i> Export-->
+                                    <!--                                </button>-->
+                                </b-col>
+                            </b-row>
                         </div>
-                        <b-row>
+                        <b-row class="etdTable">
                             <b-col md="12" class="etdTable">
-                                <vue-virtual-table
-                                    class="etd-table"
-                                    :config="fields"
-                                    :data="etdsData"
-                                    :height="heightTable"
-                                    :itemHeight="75"
-                                    :minWidth="1100"
-                                    :enableExport="false"
-                                    language="en"
-                                    :selectable="false"
-                                >
-                                    <template slot-scope="scope" slot="actionsSlot" class="testtt" >
-                                            <b-button-group class="actions">
-                                              <button v-if="scope.row.countMessages > 0" class="btn btn-hover btn-action" v-b-tooltip.hover
-                                                      v-on:click="openModal(scope.row)" title="ETD conversation"><i
-                                                  class="fas fa-comments"></i></button>
-                                              <button v-else class="btn btn-hover btn-action" v-on:click="openModal(scope.row)" title="ETD conversation"><i
-                                                  class="far fa-comment"></i></button>
-                                              <button class="btn btn-hover btn-action" title="Close ETD" v-b-tooltip.hover
-                                                    v-if="isUserPurchaser() && scope.row.status !== 'CLOSED'"
-                                                    v-on:click="openETDCloseModal(scope.row)"><i
-                                                  class="fas fa-lock"></i></button>
-                                              <button class="btn btn-hover btn-action" title="Open ETD" v-b-tooltip.hover
-                                                    v-else-if="isUserPurchaser() && scope.row.status === 'CLOSED'"
-                                                    v-on:click="openETDOpenModal(scope.row)"><i
-                                                  class="fas fa-lock-open"></i></button>
-                                              <button class="btn btn-hover btn-action" title="ETD documents" v-b-tooltip.hover
-                                                    v-on:click="openETDFilesModal(scope.row)"><i
-                                                  class="fas fa-file"></i></button>
-                                                <button class="btn btn-hover btn-action" title="Export as CSV" v-b-tooltip.hover v-on:click="exportETD(scope.row)"><i
+                                <vue-virtual-table class="etd-table" :config="fields" :data="etdsData"
+                                    :height="heightTable" :itemHeight="75" :minWidth="1100" :enableExport="false"
+                                    language="en" :selectable="false">
+                                    <template slot-scope="scope" slot="actionsSlot">
+                                        <b-button-group class="actions">
+                                            <button v-if="scope.row.countMessages > 0" class="btn btn-hover btn-action"
+                                                v-b-tooltip.hover v-on:click="openModal(scope.row, scope)"
+                                                title="ETD conversation"><i class="fas fa-comments"></i></button>
+                                            <button v-else class="btn btn-hover btn-action"
+                                                v-on:click="openModal(scope.row, scope)" title="ETD conversation"><i
+                                                    class="far fa-comment"></i></button>
+                                            <button class="btn btn-hover btn-action" title="Close ETD" v-b-tooltip.hover
+                                                v-if="isUserPurchaser() && scope.row.status !== 'CLOSED'"
+                                                v-on:click="openETDCloseModal(scope.row, scope)"><i
+                                                    class="fas fa-lock"></i></button>
+                                            <button class="btn btn-hover btn-action" title="Open ETD" v-b-tooltip.hover
+                                                v-else-if="isUserPurchaser() && scope.row.status === 'CLOSED'"
+                                                v-on:click="openETDOpenModal(scope.row, scope)"><i
+                                                    class="fas fa-lock-open"></i></button>
+                                            <button class="btn btn-hover btn-action" title="ETD documents"
+                                                v-b-tooltip.hover v-on:click="openETDFilesModal(scope.row)"><i
+                                                    class="fas fa-file"></i></button>
+                                            <button class="btn btn-hover btn-action" title="Export as CSV"
+                                                v-b-tooltip.hover v-on:click="exportETD(scope.row)"><i
                                                     class="far fa-file-excel"></i></button>
-                                              <button class="btn btn-hover btn-action" title="Show ETDLines" v-b-tooltip.hover
-                                                    v-on:click="redirectToETDLines(scope.row.id)"><i
-                                                  class="fas fa-eye"></i></button>
-                                            </b-button-group>
+                                            <button class="btn btn-hover btn-action" title="Show ETDLines"
+                                                v-b-tooltip.hover v-on:click="redirectToETDLines(scope.row.id)"><i
+                                                    class="fas fa-eye"></i></button>
+                                        </b-button-group>
                                     </template>
                                     <template slot-scope="scope" slot="etdDateSlot">
-                                        <div style="white-space: nowrap; font-size:14px" :data-id="scope.row.id">{{ scope.row.etdDate |formatDate }}</div>
+                                        <div style="white-space: nowrap; font-size:14px" :data-id="scope.row.id">{{
+                                            scope.row.etdDate | formatDate }}</div>
                                     </template>
                                     <template slot-scope="scope" slot="statusSlot">
-                                        <BadgeStatus :content="scope.row.status" type-badge="ETDStatus"/>
+                                        <BadgeStatus :content="scope.row.status" type-badge="ETDStatus" />
                                     </template>
                                 </vue-virtual-table>
                             </b-col>
@@ -74,7 +69,8 @@
                         <b-row id="etdlinesCardFooter">
                             <b-col>
                                 <span class="badge badge-primary">Total : {{ this.totalCount }}</span>
-                                <span class="badge badge-primary"><i class="fas fa-eye"></i> : {{ this.etds.length }}</span>
+                                <span class="badge badge-primary"><i class="fas fa-eye"></i> : {{ this.etds.length
+                                    }}</span>
                             </b-col>
                         </b-row>
                     </b-card>
@@ -84,18 +80,15 @@
         </b-container>
         <b-modal v-model="showConversationModal" size="xl" scrollable class="modal-dialog-centered" hide-footer>
             <template #modal-title>
-                {{ titleConversationModal }} - <button class="btn btn-hover btn-action" v-on:click="downloadConversation()"><i class="fas fa-file-download"></i></button>
+                {{ titleConversationModal }} - <button class="btn btn-hover btn-action"
+                    v-on:click="downloadConversation()"><i class="fas fa-file-download"></i></button>
             </template>
-            <MessagingModal :etd="this.etdSelected" :is-read-only="this.etdSelected.closed" :user="this.user"/>
+            <MessagingModal :etd="this.etdSelected" :is-read-only="this.etdSelected.closed" :user="this.user" />
         </b-modal>
         <b-modal :title="titleETDModal" v-model="showETDModal" class="modal-dialog-centered" size="xs">
             <p>Please, add a note :</p>
-            <b-form-textarea
-                placeholder="Enter your text here..."
-                v-model="contentMessageETDModal"
-                rows="3"
-                max-rows="6"
-            ></b-form-textarea>
+            <b-form-textarea placeholder="Enter your text here..." v-model="contentMessageETDModal" rows="3"
+                max-rows="6"></b-form-textarea>
             <template #modal-footer="{ ok, cancel }">
                 <b-button size="sm" @click="cancel()">
                     Cancel
@@ -108,8 +101,9 @@
                 </b-button>
             </template>
         </b-modal>
-        <b-modal :title="titleETDDocumentsModal" v-model="showETDDocumentsModal" size="xl" class="modal-dialog-centered" scrollable hide-footer>
-            <ETDDocuments :etd="this.etdSelected" :user="this.user"/>
+        <b-modal :title="titleETDDocumentsModal" v-model="showETDDocumentsModal" size="xl" class="modal-dialog-centered"
+            scrollable hide-footer>
+            <ETDDocuments :etd="this.etdSelected" :user="this.user" />
         </b-modal>
     </div>
 </template>
@@ -187,6 +181,7 @@ export default {
         window.removeEventListener("resize", this.calculateHeightTable);
     },
     beforeMount() {
+        console.log(this.etds);
         this.initTable();
     },
     mounted() {
@@ -256,16 +251,17 @@ export default {
             this.titleETDDocumentsModal = 'ETD ' + Utils.getDateFormatted(etd.etdDate) + ' ' + etd.vendorNo + ' files';
             this.showETDDocumentsModal = true;
         },
-        openETDOpenModal(data) {
-            console.log("data : ", data.id);
+        openETDOpenModal(data, row) {
             this.isETDModalToClose = false;
             this.etdForModal = data;
+            this.etdForModal.index = row.index;
             this.titleETDModal = 'Open ETD ' + Utils.getDateFormatted(data.etdDate) + ' ' + data.vendorNo;
             this.showETDModal = true;
         },
-        openETDCloseModal(data) {
+        openETDCloseModal(data, row) {
             this.isETDModalToClose = true;
             this.etdForModal = data;
+            this.etdForModal.index = row.index;
             this.titleETDModal = 'Close ETD ' + Utils.getDateFormatted(data.etdDate) + ' ' + data.vendorNo;
             this.showETDModal = true;
         },
@@ -273,6 +269,7 @@ export default {
             if (this.etdForModal.id !== null) {
                 API.closeETD(this.etdForModal.id, this.contentMessageETDModal)
                     .then((response) => {
+                        console.log(response);
                         this.cleanETDModal();
                     })
                     .catch((error) => {
@@ -281,6 +278,9 @@ export default {
             }
         },
         cleanETDModal() {
+            console.log(this.etdForModal.index);
+            console.log(this.etdsData);
+
             Vue.delete(this.etdsData, this.etdForModal.index);
             this.showETDModal = false;
             this.contentMessageETDModal = null;
@@ -309,27 +309,27 @@ export default {
             switch (this.user.type) {
                 case UserType.Vendor:
                     this.fields = [
-                        {prop: '_action', name: ' ', actionName: "actionsSlot", width: 100},
-                        {prop: '_action', name: 'ETD', actionName: "etdDateSlot"},
-                        {prop: '_action', name: 'Status', actionName: "statusSlot"},
-                        {prop: 'notValidatedETDLinesCount', name: 'To Validate', class: 'is-numeric'},
-                        {prop: 'etdChangedETDLinesCount', name: 'ETD Changed', class: 'is-numeric'},
-                        {prop: 'qtyChangedETDLinesCount', name: 'Qty Changed', class: 'is-numeric'},
-                        {prop: 'shipByChangedETDLinesCount', name: 'Ship by Changed', class: 'is-numeric'},
-                        {prop: 'totalETDLinesCount', name: 'Total', class: 'is-numeric'}
+                        { prop: '_action', name: ' ', actionName: "actionsSlot", width: 115 },
+                        { prop: '_action', name: 'ETD', actionName: "etdDateSlot" },
+                        { prop: '_action', name: 'Status', actionName: "statusSlot" },
+                        { prop: 'notValidatedETDLinesCount', name: 'To Validate', class: 'is-numeric' },
+                        { prop: 'etdChangedETDLinesCount', name: 'ETD Changed', class: 'is-numeric' },
+                        { prop: 'qtyChangedETDLinesCount', name: 'Qty Changed', class: 'is-numeric' },
+                        { prop: 'shipByChangedETDLinesCount', name: 'Ship by Changed', class: 'is-numeric' },
+                        { prop: 'totalETDLinesCount', name: 'Total', class: 'is-numeric' }
                     ];
                     break;
                 case UserType.Purchaser:
                     this.fields = [
-                        {prop: '_action', name: ' ', actionName: "actionsSlot", width: 100},
-                        {prop: '_action', name: 'ETD', actionName: "etdDateSlot"},
-                        {prop: 'vendorNo', name: 'Vendor', tdClass: 'test'},
-                        {prop: '_action', name: 'Status', actionName: "statusSlot"},
-                        {prop: 'notValidatedETDLinesCount', name: 'To Validate', class: 'is-numeric'},
-                        {prop: 'etdChangedETDLinesCount', name: 'ETD Changed', class: 'is-numeric'},
-                        {prop: 'qtyChangedETDLinesCount', name: 'Qty Changed', class: 'is-numeric'},
-                        {prop: 'shipByChangedETDLinesCount', name: 'Ship by Changed', class: 'is-numeric'},
-                        {prop: 'totalETDLinesCount', name: 'Total', class: 'is-numeric'}
+                        { prop: '_action', name: ' ', actionName: "actionsSlot", width: 135 },
+                        { prop: '_action', name: 'ETD', actionName: "etdDateSlot" },
+                        { prop: 'vendorNo', name: 'Vendor', tdClass: 'test', eClass: { removeactions: 'true' } },
+                        { prop: '_action', name: 'Status', actionName: "statusSlot" },
+                        { prop: 'notValidatedETDLinesCount', name: 'To Validate', class: 'is-numeric' },
+                        { prop: 'etdChangedETDLinesCount', name: 'ETD Changed', class: 'is-numeric' },
+                        { prop: 'qtyChangedETDLinesCount', name: 'Qty Changed', class: 'is-numeric' },
+                        { prop: 'shipByChangedETDLinesCount', name: 'Ship by Changed', class: 'is-numeric' },
+                        { prop: 'totalETDLinesCount', name: 'Total', class: 'is-numeric' }
                     ];
                     break;
             }
@@ -356,11 +356,24 @@ export default {
 
         form {
             input[type="text"] {
-                min-width: 400px;
+                min-width: 290px;
             }   
 
         }
     }
+.input-group {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
 }
 
+.container-etdTable {
+    display: flex;
+    flex-direction: column;
+}
+
+.etdTable {
+    overflow-y: auto;
+
+}
 </style>

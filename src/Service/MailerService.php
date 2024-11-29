@@ -79,8 +79,8 @@ class MailerService
     public function sendUpdateETDLinesEmail(ETD $etd, UpdateETDLinesMessageCounters $counters, ?string $message, User $user): void
     {
         $dateFormat = $this->_configurationService->getFormatDate();
-        // $from = $this->getFromEmail();
-        new Address('mailer@opal.fr', 'Opal Tracking Orders Mailer');
+        $from = $this->getFromEmail();
+        // $from = new Address('mailer@opal.fr', 'Opal Tracking Orders Mailer');
 
         if($dateFormat === null) {
             throw new UnexpectedValueException('The configuration getFormatDate() is null');

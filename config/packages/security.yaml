@@ -49,5 +49,5 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/dbsyncweb, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/test, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/test, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

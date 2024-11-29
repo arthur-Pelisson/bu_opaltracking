@@ -8,7 +8,7 @@
                             <b-row class="my-3" align-v="center">
                                 <b-col md="auto">
                                     <button class="btn btn-secondary" @click="returnPreviousPage()"><i
-                                        class="fas fa-arrow-left"></i></button>
+                                            class="fas fa-arrow-left"></i></button>
                                 </b-col>
                                 <b-col md="auto">
                                     <h1>
@@ -18,11 +18,10 @@
                                     </h1>
                                 </b-col>
                                 <b-col md="auto">
-                                <span v-if="this.etdConversationCount > 0" class="btn btn-secondary"
-                                      @click="openETDConversationModal()"><i
-                                    class="fas fa-comments"></i></span>
+                                    <span v-if="this.etdConversationCount > 0" class="btn btn-secondary"
+                                        @click="openETDConversationModal()"><i class="fas fa-comments"></i></span>
                                     <span v-else class="btn btn-secondary" @click="openETDConversationModal()"><i
-                                        class="far fa-comment"></i></span>
+                                            class="far fa-comment"></i></span>
                                 </b-col>
                             </b-row>
                             <b-row class="my-3" align-v="center">
@@ -34,66 +33,61 @@
                                             </b-input-group-text>
                                         </template>
                                         <input type="text" v-model="filter.filterRow" class="form-control"
-                                               style="width: 170px;"/>
+                                            style="width: 170px;" />
                                     </b-input-group>
                                 </b-col>
-                                <b-col md="auto" class="small-padding">
+                                <b-col md="auto" cols="3" class="small-padding filter-btn">
                                     <b-form-checkbox v-if="!this.filter.areETDLineReadOnlyHidden"
-                                                     v-model="filter.areETDLineReadOnlyHidden" name="check-button"
-                                                     switch
-                                                     @input="hideReadOnlyLine()">
+                                        v-model="filter.areETDLineReadOnlyHidden" name="check-button" switch
+                                        @input="hideReadOnlyLine()">
                                         Only updatable
                                     </b-form-checkbox>
                                     <b-form-checkbox v-if="this.filter.areETDLineReadOnlyHidden"
-                                                     v-model="filter.areETDLineReadOnlyHidden" name="check-button"
-                                                     switch
-                                                     @input="showReadOnlyLine()">
+                                        v-model="filter.areETDLineReadOnlyHidden" name="check-button" switch
+                                        @input="showReadOnlyLine()">
                                         Only updatable
                                     </b-form-checkbox>
                                 </b-col>
-                                <b-col md="auto" class="small-padding">
+                                <b-col md="auto" cols="3" class="small-padding ">
                                     <div class="etdStatus">
-                                        <button class="btn btn-secondary btn-icon" @click="cleanFilterRow()">Filter by
+                                        <button class="btn btn-secondary btn-icon filter-btn"
+                                            @click="cleanFilterRow()">Filter by
                                             status
                                         </button>
-                                        <b-form-checkbox-group
-                                            v-model="filter.statusFilterSelected"
-                                            :options="etdLineStatus"
-                                            stacked
-                                            class="etdStatusList lg"
-                                        ></b-form-checkbox-group>
+                                        <b-form-checkbox-group v-model="filter.statusFilterSelected"
+                                            :options="etdLineStatus" stacked
+                                            class="etdStatusList lg"></b-form-checkbox-group>
                                     </div>
 
                                 </b-col>
-                                <b-col md="auto" class="small-padding">
+                                <b-col md="auto" cols="3" class="small-padding">
                                     <div class="tagFilters">
-                                        <button class="btn btn-secondary btn-icon" @click="cleanFilterRow()">Filter by
+                                        <button class="btn btn-secondary btn-icon filter-btn"
+                                            @click="cleanFilterRow()">Filter by
                                             tags
                                         </button>
-                                        <b-form-checkbox-group
-                                            v-model="filter.tagsFilterSelected"
-                                            :options="etdLineTags"
-                                            stacked
-                                            class="tagFiltersList"
-                                        ></b-form-checkbox-group>
+                                        <b-form-checkbox-group v-model="filter.tagsFilterSelected"
+                                            :options="etdLineTags" stacked
+                                            class="tagFiltersList"></b-form-checkbox-group>
                                     </div>
                                 </b-col>
-                                <b-col md="auto" class="small-padding">
-                                    <button class="btn btn-secondary btn-icon" @click="cleanFilterRow()">Clear filters
+                                <b-col md="auto" cols="3" class="small-padding ">
+                                    <button class="btn btn-secondary btn-icon filter-btn"
+                                        @click="cleanFilterRow()">Clear filters
                                     </button>
                                 </b-col>
-                                <b-col md="auto" class="small-padding">
+                                <b-col md="auto" cols="3" class="small-padding filter-btn">
                                     <button v-if="!areAllRowsSelected()" class="btn btn-secondary btn-icon"
-                                            @click="selectAllRows()">Select all
+                                        @click="selectAllRows()">Select all
                                     </button>
-                                    <button v-else class="btn btn-secondary btn-icon" @click="unselectAllRows()">
+                                    <button v-else class="btn btn-secondary btn-icon filter-btn"
+                                        @click="unselectAllRows()">
                                         Unselect all
                                     </button>
                                 </b-col>
                                 <b-col h-align="right" v-if="isUserEnabledToUpdate()" class="text-right">
                                     <b-dropdown id="dropdown-dropdown" dropdown text="Actions on selected"
-                                                variant="secondary"
-                                                :disabled="this.etdLinesSelected.length === 0">
+                                        variant="secondary" :disabled="this.etdLinesSelected.length === 0">
                                         <b-dropdown-item v-if="isUserPurchaser()" @click="approveSelected()">Approve
                                             selected
                                         </b-dropdown-item>
@@ -105,62 +99,44 @@
                                         <b-dropdown-item @click="showShipByModal = true">Change ship by
                                         </b-dropdown-item>
                                     </b-dropdown>
-                                    <b-dropdown
-                                        split
-                                        split-variant="primary"
-                                        variant="primary"
-                                        text="Validate changes"
-                                        class="m-2"
-                                        @click="validateConfirmation()"
-                                    >
+                                    <b-dropdown split split-variant="primary" variant="primary" text="Validate changes"
+                                        class="m-2" @click="validateConfirmation()">
                                         <b-dropdown-item @click="cancelChanges()">Cancel changes</b-dropdown-item>
                                     </b-dropdown>
                                 </b-col>
                             </b-row>
                         </div>
-                        <b-row>
+                        <b-row class="etdTable">
                             <b-col md="12">
-                                <vue-virtual-table
-                                    :config="fields"
-                                    :data="etdLinesDisplayed"
-                                    :height="heightTable"
-                                    :itemHeight="48"
-                                    :minWidth="1000"
-                                    language="en"
-                                    :selectable="false"
-                                >
+                                <vue-virtual-table :config="fields" :data="etdLinesDisplayed" :height="heightTable"
+                                    :itemHeight="48" :minWidth="1000" language="en" :selectable="false">
                                     <template slot-scope="scope" slot="actionsSlot">
                                         <div>
                                             <button v-if="scope.row.countMessages > 0" title="ETD Line conversation"
-                                                    v-b-tooltip.hover
-                                                    @click="openETDLineConversationModal(scope.row)"
-                                                    :disabled="scope.row.id === 0"
-                                                    class="btn btn-hover btn-action" v-html="getIconComment(true)">
+                                                v-b-tooltip.hover @click="openETDLineConversationModal(scope.row)"
+                                                :disabled="scope.row.id === 0" class="btn btn-hover btn-action"
+                                                v-html="getIconComment(true)">
                                             </button>
                                             <button v-else @click="openETDLineConversationModal(scope.row)"
-                                                    title="ETD Line conversation" v-b-tooltip.hover
-                                                    :disabled="scope.row.id === 0"
-                                                    class="btn btn-hover btn-action" v-html="getIconComment(false)">
+                                                title="ETD Line conversation" v-b-tooltip.hover
+                                                :disabled="scope.row.id === 0" class="btn btn-hover btn-action"
+                                                v-html="getIconComment(false)">
                                             </button>
                                             <button v-if="isUserPurchaser()" :disabled="!isETDLineApprovable(scope.row)"
-                                                    @click="approveETDLine(scope.row)"
-                                                    class="btn btn-hover btn-action"><i
-                                                class="fas fa-check"
-                                                style="color:#52C41A"></i></button>
+                                                @click="approveETDLine(scope.row)" class="btn btn-hover btn-action"><i
+                                                    class="fas fa-check" style="color:#52C41A"></i></button>
                                             <button v-if="isUserPurchaser()" :disabled="!isETDLineRejectable(scope.row)"
-                                                    @click="rejectETDLine(scope.row)"
-                                                    class="btn btn-hover btn-action"><i
-                                                class="fas fa-times"
-                                                style="color:#F5222D"></i></button>
+                                                @click="rejectETDLine(scope.row)" class="btn btn-hover btn-action"><i
+                                                    class="fas fa-times" style="color:#F5222D"></i></button>
                                         </div>
                                     </template>
                                     <template slot-scope="scope" slot="checkedSlot">
                                         <input type="checkbox" v-model="scope.row.checked"
-                                               :ref="`input-checked-${scope.row._index}`"
-                                               @change="changeETDLineChecked(scope.row, null, true)">
+                                            :ref="`input-checked-${scope.row._index}`"
+                                            @change="changeETDLineChecked(scope.row, null, true)">
                                     </template>
                                     <template slot-scope="scope" slot="statusSlot">
-                                        <BadgeStatus :content="scope.row.status" type-badge="ETDLineStatus"/>
+                                        <BadgeStatus :content="scope.row.status" type-badge="ETDLineStatus" />
                                     </template>
                                     <template slot-scope="scope" slot="outstandingQtySlot">
                                         {{ scope.row.outstandingQty | formatQuantity }}
@@ -171,45 +147,33 @@
                                     <template slot-scope="scope" slot="etdLineTagsSlot">
                                         <div class="badge-list">
                                             <BadgeStatus v-if="scope.row.etdLineTag.partial" content="Partial"
-                                                         type-badge="ETDLineTag"/>
+                                                type-badge="ETDLineTag" />
                                             <BadgeStatus v-if="scope.row.etdLineTag.completed" content="Completed"
-                                                         type-badge="ETDLineTag"/>
+                                                type-badge="ETDLineTag" />
                                             <BadgeStatus v-if="scope.row.etdLineTag.closed" content="Closed"
-                                                         type-badge="ETDLineTag"/>
+                                                type-badge="ETDLineTag" />
                                             <BadgeStatus v-if="scope.row.etdLineTag.etdChanged" content="ETDChanged"
-                                                         type-badge="ETDLineTag"/>
+                                                type-badge="ETDLineTag" />
                                             <BadgeStatus v-if="scope.row.etdLineTag.shipByChanged"
-                                                         content="ShipByChanged"
-                                                         type-badge="ETDLineTag"/>
+                                                content="ShipByChanged" type-badge="ETDLineTag" />
                                             <BadgeStatus v-if="scope.row.etdLineTag.qtyChanged" content="QtyChanged"
-                                                         type-badge="ETDLineTag"/>
+                                                type-badge="ETDLineTag" />
                                         </div>
                                     </template>
                                     <template slot-scope="scope" slot="etdDateConfirmedSlot">
                                         <div v-if="isRowEditable(scope.row)" class="is-calendar datepicker">
-                                            <b-form-datepicker
-                                                :disabled="isPartialAvailable(scope.row)"
-                                                v-model="scope.row.etdDateConfirmed"
-                                                button-only
-                                                right
-                                                locale="en-US"
-                                                hide-header
-                                                :min="scope.row.etdDate"
-                                                :reset-button="isETDDateNullable(scope.row)"
-                                                :reset-value=null
+                                            <b-form-datepicker :disabled="isPartialAvailable(scope.row)"
+                                                v-model="scope.row.etdDateConfirmed" button-only right locale="en-US"
+                                                hide-header :min="scope.row.etdDate"
+                                                :reset-button="isETDDateNullable(scope.row)" :reset-value=null
                                                 label-reset-button="Cancel balance"
                                                 :id="'datepicker_' + scope.row._index"
-                                                @input="updateETDDateConfirmed(scope.row)"
-                                                title="Change date" v-b-tooltip.hover
-                                            ></b-form-datepicker>
-                                            <input
-                                                v-model="scope.row.etdDateConfirmed"
-                                                type="text"
-                                                readonly
+                                                @input="updateETDDateConfirmed(scope.row)" title="Change date"
+                                                v-b-tooltip.hover></b-form-datepicker>
+                                            <input v-model="scope.row.etdDateConfirmed" type="text" readonly
                                                 @click="openCalendar('datepicker_' + scope.row._index)"
                                                 :disabled="isPartialAvailable(scope.row)"
-                                                placeholder="Balance cancelled"
-                                            />
+                                                placeholder="Balance cancelled" />
                                         </div>
                                         <template v-else>
                                             <template v-if="isDateNull(scope.row.etdDateConfirmed)">
@@ -225,28 +189,25 @@
                                     <template slot-scope="scope" slot="outstandingQtyConfirmedSlot">
                                         <template v-if="isRowEditable(scope.row)">
                                             <div class="form-group">
-                                                <button v-if="isPartialAvailable(scope.row)"
-                                                        title="Manage partial" v-b-tooltip.hover
-                                                        @click="openPartialModal(scope.row)"
-                                                        class="btn btn-hover btn-action"><i
-                                                    class="fas fa-layer-group"></i></button>
+                                                <button v-if="isPartialAvailable(scope.row)" title="Manage partial"
+                                                    v-b-tooltip.hover @click="openPartialModal(scope.row)"
+                                                    class="btn btn-hover btn-action"><i
+                                                        class="fas fa-layer-group"></i></button>
                                                 <input class="form-control" type="number"
-                                                       :readonly="isPartialAvailable(scope.row)"
-                                                       :value="scope.row.outstandingQtyConfirmed"
-                                                       step="1" min="0"
-                                                       @change="checkOutstandingQtyConfirmed(scope.row, $event)"/>
+                                                    :readonly="isPartialAvailable(scope.row)"
+                                                    :value="scope.row.outstandingQtyConfirmed" step="1" min="0"
+                                                    @change="checkOutstandingQtyConfirmed(scope.row, $event)" />
                                             </div>
                                         </template>
                                         <template v-else>{{
-                                                scope.row.outstandingQtyConfirmed  | formatQuantity
+                                            scope.row.outstandingQtyConfirmed | formatQuantity
                                             }}
                                         </template>
                                     </template>
                                     <template slot-scope="scope" slot="shipByConfirmedSlot">
                                         <select v-if="isRowEditable(scope.row)" v-model="scope.row.shipByConfirmed"
-                                                :disabled="isPartialAvailable(scope.row)"
-                                                @change="updateShipByConfirmed(scope.row)"
-                                                class="custom-select btn-sm">
+                                            :disabled="isPartialAvailable(scope.row)"
+                                            @change="updateShipByConfirmed(scope.row)" class="custom-select btn-sm">
                                             <template v-for="shipByOption in shipByOptions">
                                                 <option :value="shipByOption.value">{{ shipByOption.text }}</option>
                                             </template>
@@ -259,12 +220,9 @@
                                     <template slot-scope="scope" slot="commentsSlot">
                                         <template v-if="scope.row.comments !== null && scope.row.comments !== ''">
                                             <b-button :id="`popover-${scope.row._index}`" variant="primary"
-                                                      class="btn btn-hover btn-action"><i class="fas fa-info"></i>
+                                                class="btn btn-hover btn-action"><i class="fas fa-info"></i>
                                             </b-button>
-                                            <b-popover
-                                                :target="`popover-${scope.row._index}`"
-                                                triggers="hover focus"
-                                            >
+                                            <b-popover :target="`popover-${scope.row._index}`" triggers="hover focus">
                                                 {{ scope.row.comments }}
                                             </b-popover>
                                         </template>
@@ -275,39 +233,38 @@
                         <b-row id="etdlinesCardFooter">
                             <b-col>
                                 <span class="badge badge-primary">Total : {{ this.countETDLines }}</span>
-                                <span class="badge badge-primary"><i
-                                    class="fas fa-eye"></i> : {{ this.countETDLinesDisplayed }}</span>
+                                <span class="badge badge-primary"><i class="fas fa-eye"></i> : {{
+                                    this.countETDLinesDisplayed }}</span>
                             </b-col>
                             <b-col>
-                                <div style="font-size:12px; font-style: italic; text-align: right; margin-top: 10px;">The changes are stored temporarily in your browser. They are not counted until they are validated</div>
+                                <div style="font-size:12px; font-style: italic; text-align: right; margin-top: 10px;">
+                                    The changes are stored
+                                    temporarily in your browser. They are not counted until they are validated</div>
                             </b-col>
                         </b-row>
                     </b-card>
                 </b-col>
             </b-row>
         </b-container>
-        <b-modal v-model="showETDLineConversationModal" size="xl"
-                 class="modal-dialog-centered" scrollable
-                 hide-footer>
+        <b-modal v-model="showETDLineConversationModal" size="xl" class="modal-dialog-centered" scrollable hide-footer>
             <template #modal-title>
                 {{ titleConversationModal }} -
                 <button class="btn btn-hover btn-action" v-on:click="downloadConversation(true)"><i
-                    class="fas fa-file-download"></i></button>
+                        class="fas fa-file-download"></i></button>
             </template>
             <MessagingModal :etd="this.etd" :etd-line="this.etdLineSelected" :is-read-only="isETDClosed()"
-                            :user="this.user"/>
+                :user="this.user" />
         </b-modal>
-        <b-modal v-model="showETDConversationModal" size="xl"
-                 class="modal-dialog-centered" scrollable hide-footer>
+        <b-modal v-model="showETDConversationModal" size="xl" class="modal-dialog-centered" scrollable hide-footer>
             <template #modal-title>
                 {{ titleConversationModal }} -
                 <button class="btn btn-hover btn-action" v-on:click="downloadConversation()"><i
-                    class="fas fa-file-download"></i></button>
+                        class="fas fa-file-download"></i></button>
             </template>
-            <MessagingModal :etd="this.etd" :is-read-only="isETDClosed()" :user="this.user"/>
+            <MessagingModal :etd="this.etd" :is-read-only="isETDClosed()" :user="this.user" />
         </b-modal>
         <b-modal title="Cancel updates" v-model="showCancelUpdateModal" size="xs" class="modal-dialog-centered"
-                 @ok="validateCancelChanges()">
+            @ok="validateCancelChanges()">
             <p><i class="fas fa-exclamation-triangle"></i>Are you sure to cancel all updates ?</p>
             <template #modal-footer="{ ok, cancel }">
                 <b-button size="sm" @click="cancel()">
@@ -319,24 +276,24 @@
             </template>
         </b-modal>
         <b-modal title="Update summary" v-model="showValidationModal" size="xl" class="modal-dialog-centered"
-                 @ok="validateUpdate()">
+            @ok="validateUpdate()">
             <p><i class="fas fa-exclamation-triangle"></i>If you validate, you won't be able to update your ETD lines !
             </p>
             <div id="summary-validation-modal">
                 <p v-if="this.countApprovedChanged > 0">Approved : {{ this.countApprovedChanged }}</p>
                 <p v-if="this.countRejectedChanged > 0">Rejected : {{ this.countRejectedChanged }}</p>
                 <p v-if="this.countValidateShipByChanged > 0">Ship By Changed : {{
-                        this.countValidateShipByChanged
+                    this.countValidateShipByChanged
                     }}</p>
                 <p v-if="this.countValidateETDDateChanged > 0">ETD Date Changed : {{
-                        this.countValidateETDDateChanged
+                    this.countValidateETDDateChanged
                     }}</p>
                 <p v-if="this.countValidateQtyChanged > 0">Qty Changed : {{ this.countValidateQtyChanged }}</p>
             </div>
             <p>You can add some explanations :</p>
             <textarea placeholder="Enter your text here..." v-model="contentMessageValidationModal" rows="6"
-                      class="form-control" wrap="soft">
-            </textarea>
+                class="form-control" wrap="soft">
+    </textarea>
             <template #modal-footer="{ ok, cancel }">
                 <b-button size="sm" variant="primary" @click="ok()">
                     Validate (no rollback)
@@ -344,27 +301,14 @@
             </template>
         </b-modal>
         <b-modal title="Change ETD date on selected ETD lines" v-model="showETDDateModal" class="modal-dialog-centered"
-                 size="xs"
-                 @ok="handleMultipleETDDateUpdate()">
+            size="xs" @ok="handleMultipleETDDateUpdate()">
             <div class="datepicker">
-                <b-form-datepicker
-                    v-model="dateSelectedETDDateModal"
-                    button-only
-                    right
-                    locale="en-US"
-                    hide-header
-                    :min="this.etd.etdDate"
-                    aria-controls="inputHandleMultipleETDDateUpdate"
-                    id="datepickerHandleMultipleETDDateUpdate"
-                ></b-form-datepicker>
-                <input
-                    id="inputHandleMultipleETDDateUpdate"
-                    @click="openCalendar('datepickerHandleMultipleETDDateUpdate')"
-                    v-model="dateSelectedETDDateModal"
-                    type="text"
-                    readonly
-                    placeholder="Balance cancelled"
-                />
+                <b-form-datepicker v-model="dateSelectedETDDateModal" button-only right locale="en-US" hide-header
+                    :min="this.etd.etdDate" aria-controls="inputHandleMultipleETDDateUpdate"
+                    id="datepickerHandleMultipleETDDateUpdate"></b-form-datepicker>
+                <input id="inputHandleMultipleETDDateUpdate"
+                    @click="openCalendar('datepickerHandleMultipleETDDateUpdate')" v-model="dateSelectedETDDateModal"
+                    type="text" readonly placeholder="Balance cancelled" />
             </div>
             <template #modal-footer="{ ok, cancel }">
                 <b-button size="sm" @click="cancel()">
@@ -376,8 +320,7 @@
             </template>
         </b-modal>
         <b-modal title="Change Ship By on selected ETD lines" v-model="showShipByModal" class="modal-dialog-centered"
-                 size="xs"
-                 @ok="handleMultipleShipByUpdate()">
+            size="xs" @ok="handleMultipleShipByUpdate()">
             <select v-model="shipBySelectedShipByModal" class="custom-select btn-sm">
                 <template v-for="shipByOption in shipByOptions">
                     <option :value="shipByOption.value">{{ shipByOption.text }}</option>
@@ -393,8 +336,8 @@
             </template>
         </b-modal>
         <b-modal :title="titlePartialModal" v-model="showPartialModal" size="lg" class="modal-dialog-centered"
-                 :no-close-on-esc=true
-                 :no-close-on-backdrop=true :ok-only=true :hide-header-close=true @cancel="cancelPartial()">
+            :no-close-on-esc=true :no-close-on-backdrop=true :ok-only=true :hide-header-close=true
+            @cancel="cancelPartial()">
             <p>If you want to close a partial, let the ETD date empty !</p>
             <b-alert :show="this.isETDLinePartialQtyTooMuch" variant="danger">The total quantity is greater than
                 expected
@@ -412,25 +355,12 @@
             <template v-if="etdLinePartial !== null">
                 <b-row>
                     <b-col md="4" class="datepicker" v-if="isRowEditable(etdLinePartial)">
-                        <b-form-datepicker
-                            v-model="etdLinePartial.etdDateConfirmed"
-                            button-only
-                            right
-                            locale="en-US"
-                            hide-header
-                            :min="etdLinePartial.etdDate"
-                            aria-controls="etdLinePartialParentInput"
-                            id="datepickerpartial_parent"
-                            @input="updatePartialETDDateConfirmed()"
-                        ></b-form-datepicker>
-                        <input
-                            id="etdLinePartialParentInput"
-                            @click="openCalendar('datepickerpartial_parent')"
-                            v-model="etdLinePartial.etdDateConfirmed"
-                            type="text"
-                            readonly
-                            placeholder="Balance cancelled"
-                        />
+                        <b-form-datepicker v-model="etdLinePartial.etdDateConfirmed" button-only right locale="en-US"
+                            hide-header :min="etdLinePartial.etdDate" aria-controls="etdLinePartialParentInput"
+                            id="datepickerpartial_parent" @input="updatePartialETDDateConfirmed()"></b-form-datepicker>
+                        <input id="etdLinePartialParentInput" @click="openCalendar('datepickerpartial_parent')"
+                            v-model="etdLinePartial.etdDateConfirmed" type="text" readonly
+                            placeholder="Balance cancelled" />
                     </b-col>
                     <b-col v-else style="text-align: right">
                         <template v-if="isDateNull(etdLinePartial.etdDateConfirmed)">
@@ -444,18 +374,16 @@
                     </b-col>
                     <b-col md="2">
                         <input type="number" size="sm" class="form-control" step="1" min="0"
-                               v-if="isRowEditable(etdLinePartial)"
-                               v-model="etdLinePartial.outstandingQtyConfirmed"
-                               @change="updatePartialOutstandingQtyConfirmed()"/>
+                            v-if="isRowEditable(etdLinePartial)" v-model="etdLinePartial.outstandingQtyConfirmed"
+                            @change="updatePartialOutstandingQtyConfirmed()" />
                         <div style="text-align: right" v-else>{{
-                                etdLinePartial.outstandingQtyConfirmed | formatQuantity
+                            etdLinePartial.outstandingQtyConfirmed | formatQuantity
                             }}
                         </div>
                     </b-col>
                     <b-col md="4">
                         <select v-model="etdLinePartial.shipByConfirmed" v-if="isRowEditable(etdLinePartial)"
-                                @change="updatePartialShipByConfirmed(etdLinePartial)"
-                                class="custom-select btn-sm">
+                            @change="updatePartialShipByConfirmed(etdLinePartial)" class="custom-select btn-sm">
                             <template v-for="shipByOption in shipByOptions">
                                 <option :value="shipByOption.value">{{ shipByOption.text }}</option>
                             </template>
@@ -464,46 +392,28 @@
                     </b-col>
                     <b-col md="2">
                         <span class="btn btn-secondary" v-if="etdLinePartial.childETDLines.length === 0"
-                              @click="addEtdLineChildPartial()"><i class="fas fa-plus"></i></span>
+                            @click="addEtdLineChildPartial()"><i class="fas fa-plus"></i></span>
                     </b-col>
                 </b-row>
                 <b-row v-for="(child, index) in etdLinePartial.childETDLines" :key="index" class="my-3">
                     <b-col md="4" class="datepicker">
-                        <b-form-datepicker
-                            v-model="child.etdDateConfirmed"
-                            button-only
-                            right
-                            locale="en-US"
-                            hide-header reset-button
-                            placeholder="Balance cancelled"
-                            label-reset-button="Cancel balance"
-                            :reset-value=null
-                            :disabled="isPartialETDDisable(child)"
-                            :min="etdLinePartial.etdDate"
-                            :aria-controls="child._index"
-                            :id="'datepickerpartial_child' + index"
-                            @input="updatePartialETDDateConfirmed()"
-                        ></b-form-datepicker>
-                        <input
-                            :id="child._index"
-                            @click="openCalendar('datepickerpartial_child' + index)"
-                            v-model="child.etdDateConfirmed"
-                            :disabled="isPartialETDDisable(child)"
-                            type="text"
-                            readonly
-                            placeholder="Balance cancelled"
-                        />
+                        <b-form-datepicker v-model="child.etdDateConfirmed" button-only right locale="en-US" hide-header
+                            reset-button placeholder="Balance cancelled" label-reset-button="Cancel balance"
+                            :reset-value=null :disabled="isPartialETDDisable(child)" :min="etdLinePartial.etdDate"
+                            :aria-controls="child._index" :id="'datepickerpartial_child' + index"
+                            @input="updatePartialETDDateConfirmed()"></b-form-datepicker>
+                        <input :id="child._index" @click="openCalendar('datepickerpartial_child' + index)"
+                            v-model="child.etdDateConfirmed" :disabled="isPartialETDDisable(child)" type="text" readonly
+                            placeholder="Balance cancelled" />
                     </b-col>
                     <b-col md="2">
                         <input type="number" class="form-control" size="sm" step="1" min="0"
-                               v-model="child.outstandingQtyConfirmed"
-                               :max="child.outstandingQty | formatQuantity"
-                               @change="updatePartialOutstandingQtyConfirmed()"/>
+                            v-model="child.outstandingQtyConfirmed" :max="child.outstandingQty | formatQuantity"
+                            @change="updatePartialOutstandingQtyConfirmed()" />
                     </b-col>
                     <b-col md="4">
-                        <select v-model="child.shipByConfirmed"
-                                @change="updatePartialShipByConfirmed(child)"
-                                class="custom-select btn-sm">
+                        <select v-model="child.shipByConfirmed" @change="updatePartialShipByConfirmed(child)"
+                            class="custom-select btn-sm">
                             <template v-for="shipByOption in shipByOptions">
                                 <option :value="shipByOption.value">{{ shipByOption.text }}</option>
                             </template>
@@ -512,23 +422,23 @@
                     <b-col md="2">
                         <b-button-group>
                             <b-button v-if="index === etdLinePartial.childETDLines.length - 1"
-                                      @click="addEtdLineChildPartial()"
-                                      class="btn btn-hover"><i class="fas fa-plus"></i></b-button>
+                                @click="addEtdLineChildPartial()" class="btn btn-hover"><i
+                                    class="fas fa-plus"></i></b-button>
                             <b-button @click="removeEtdLineChildPartial(child)" class="btn btn-hover"><i
-                                class="fas fa-minus"></i></b-button>
+                                    class="fas fa-minus"></i></b-button>
                         </b-button-group>
 
                     </b-col>
                 </b-row>
                 <textarea placeholder="Please explain us why you need to create a partial"
-                          v-model="contentMessagePartialModal" rows="6" class="form-control" wrap="soft"></textarea>
+                    v-model="contentMessagePartialModal" rows="6" class="form-control" wrap="soft"></textarea>
             </template>
             <template #modal-footer="{ ok, cancel }">
                 <b-button size="sm" variant="primary" @click="cancel()">
                     Cancel updates
                 </b-button>
                 <b-button size="sm" variant="primary" @click="applyUpdateETDPartials()"
-                          :disabled="isApplyPartialDisabled()">
+                    :disabled="isApplyPartialDisabled()">
                     Apply partial
                 </b-button>
             </template>
@@ -537,10 +447,10 @@
 </template>
 
 <script>
-import {BButton} from 'bootstrap-vue/esm/components/button';
-import {BInputGroup, BInputGroupAppend} from 'bootstrap-vue/esm/components/input-group';
-import {BTable} from 'bootstrap-vue/esm/components/table';
-import {BFormInput} from 'bootstrap-vue/esm/components/form-input';
+import { BButton } from 'bootstrap-vue/esm/components/button';
+import { BInputGroup, BInputGroupAppend } from 'bootstrap-vue/esm/components/input-group';
+import { BTable } from 'bootstrap-vue/esm/components/table';
+import { BFormInput } from 'bootstrap-vue/esm/components/form-input';
 import {
     BAlert,
     BButtonGroup,
@@ -558,12 +468,12 @@ import {
     BPagination,
     BRow
 } from "bootstrap-vue";
-import {BDropdown} from "bootstrap-vue/esm/components/dropdown";
+import { BDropdown } from "bootstrap-vue/esm/components/dropdown";
 import MenuBar from "./MenuBar";
 import MessagingModal from "./MessagingModal";
 import * as Utils from "./../utils/utils";
 import * as API from "./../utils/api";
-import {ETDLineStatus, ETDLineTag, ETDStatus, UserType} from "../utils/enum";
+import { ETDLineStatus, ETDLineTag, ETDStatus, UserType } from "../utils/enum";
 import BadgeStatus from "./BadgeStatus";
 import VueVirtualTable from 'vue-virtual-table';
 
@@ -597,15 +507,15 @@ export default {
         VueVirtualTable
     },
     props: {
-        user: {type: Object, required: true},
-        etd: {type: Object, required: true},
-        etdLines: {type: Array, required: true},
-        qtyModifiedToCreatePartial: {type: Number, required: true},
-        conversationsCount: {type: Array, required: true},
-        isReadOnly: {type: Boolean, required: true},
-        vendorNo: {type: String, required: true},
-        etdConversationCount: {type: Number, required: true},
-        previousePage: {type: String, required: true},
+        user: { type: Object, required: true },
+        etd: { type: Object, required: true },
+        etdLines: { type: Array, required: true },
+        qtyModifiedToCreatePartial: { type: Number, required: true },
+        conversationsCount: { type: Array, required: true },
+        isReadOnly: { type: Boolean, required: true },
+        vendorNo: { type: String, required: true },
+        etdConversationCount: { type: Number, required: true },
+        previousePage: { type: String, required: true },
     },
     data() {
         return {
@@ -615,14 +525,14 @@ export default {
             etdLineSelected: [],
             fields: [],
             shipByOptions: [
-                {value: 'AIR', text: 'AIR'},
-                {value: 'EXPRESS', text: 'EXPRESS'},
-                {value: 'HKONG', text: 'HONG KONG FAIR'},
-                {value: 'MIDO', text: 'MIDO'},
-                {value: 'ROUTE', text: 'ROUTE'},
-                {value: 'SEA', text: 'SEA'},
-                {value: 'SEAAIR', text: 'SEA / AIR'},
-                {value: 'SILMO', text: 'SILMO'},
+                { value: 'AIR', text: 'AIR' },
+                { value: 'EXPRESS', text: 'EXPRESS' },
+                { value: 'HKONG', text: 'HONG KONG FAIR' },
+                { value: 'MIDO', text: 'MIDO' },
+                { value: 'ROUTE', text: 'ROUTE' },
+                { value: 'SEA', text: 'SEA' },
+                { value: 'SEAAIR', text: 'SEA / AIR' },
+                { value: 'SILMO', text: 'SILMO' },
             ],
             showETDLineConversationModal: false,
             showETDConversationModal: false,
@@ -661,18 +571,18 @@ export default {
             currentPage: 1,
             heightTable: 0,
             etdLineStatus: [
-                {value: ETDLineStatus.Approved, text: 'Approved'},
-                {value: ETDLineStatus.Rejected, text: 'Rejected'},
-                {value: ETDLineStatus.Initial, text: 'Initial'},
-                {value: ETDLineStatus.WaitingForApproval, text: 'Waiting for approval'},
+                { value: ETDLineStatus.Approved, text: 'Approved' },
+                { value: ETDLineStatus.Rejected, text: 'Rejected' },
+                { value: ETDLineStatus.Initial, text: 'Initial' },
+                { value: ETDLineStatus.WaitingForApproval, text: 'Waiting for approval' },
             ],
             etdLineTags: [
-                {value: ETDLineTag.Closed, text: 'Closed'},
-                {value: ETDLineTag.Partial, text: 'Partial'},
-                {value: ETDLineTag.Completed, text: 'Completed'},
-                {value: ETDLineTag.ShipByChanged, text: 'ShipByChanged'},
-                {value: ETDLineTag.ETDChanged, text: 'ETDChanged'},
-                {value: ETDLineTag.QtyChanged, text: 'QtyChanged'},
+                { value: ETDLineTag.Closed, text: 'Closed' },
+                { value: ETDLineTag.Partial, text: 'Partial' },
+                { value: ETDLineTag.Completed, text: 'Completed' },
+                { value: ETDLineTag.ShipByChanged, text: 'ShipByChanged' },
+                { value: ETDLineTag.ETDChanged, text: 'ETDChanged' },
+                { value: ETDLineTag.QtyChanged, text: 'QtyChanged' },
             ],
             contentMessagePartialModal: null,
             partialMessages: [],
@@ -681,7 +591,6 @@ export default {
     mounted() {
         this.initTable();
         this.calculateHeightTable();
-        console.log(this.previousePage);
     },
     created() {
         window.addEventListener("resize", this.calculateHeightTable);
@@ -783,7 +692,10 @@ export default {
                 countValidateQtyChanged: this.countValidateQtyChanged,
                 countValidateShipByChanged: this.countValidateShipByChanged
             }
-
+            console.log(onlyParentETDLine);
+            console.log(counters);
+            console.log(message);
+            console.log(this.partialMessages);
             API.updateETDLines(this.etd.id, onlyParentETDLine, message, counters, this.partialMessages)
                 .then((response) => {
                     if (response.status === 204) {
@@ -810,7 +722,7 @@ export default {
             this.etdLinePartial.childETDLines = partialChilds;
             // this.etdLinePartialSave = this.copyETDLine(this.etdLinePartial);
             this.etdLinePartialSave = this.etdLinesDataInitSave.find(_ => _._index === this.etdLinePartial._index);
-            if(this.etdLinePartialOutstandingQtyOpenModal) {
+            if (this.etdLinePartialOutstandingQtyOpenModal) {
                 this.etdLinesDataInitSave.outstandingQtyConfirmed = this.etdLinePartialOutstandingQtyOpenModal;
             }
             console.log(this.etdLinesDataInitSave);
@@ -895,7 +807,7 @@ export default {
                 if (partialMessage) {
                     partialMessage.message = this.contentMessagePartialModal;
                 } else {
-                    this.partialMessages.push({id: this.etdLinePartial.id, message: this.contentMessagePartialModal});
+                    this.partialMessages.push({ id: this.etdLinePartial.id, message: this.contentMessagePartialModal });
                 }
                 this.contentMessagePartialModal = null;
             }
@@ -905,7 +817,7 @@ export default {
             this.etdLinePartialOutstandingQtyOpenModal = null;
         },
         checkOutstandingQtyConfirmed(etdLine, event) {
-            if(etdLine.parentETDLine === null) {
+            if (etdLine.parentETDLine === null) {
                 this.etdLinePartialOutstandingQtyOpenModal = etdLine.outstandingQtyConfirmed;
             }
             etdLine.outstandingQtyConfirmed = event.target.value;
@@ -963,7 +875,7 @@ export default {
                 shipBy: this.etdLinePartial.shipByConfirmed
             });
             this.etdLinePartial.childETDLines.forEach(child => {
-                const row = {date: Utils.getDateFormatted(child.etdDateConfirmed), shipBy: child.shipByConfirmed};
+                const row = { date: Utils.getDateFormatted(child.etdDateConfirmed), shipBy: child.shipByConfirmed };
                 if (row.date === null) {
                     alreadySeen.find(_ => _.date === row.date) !== undefined ? this.isETDLineTwoClosed = true : alreadySeen.push(row);
                 } else {
@@ -1272,11 +1184,11 @@ export default {
             let currentUrl = window.location.href;
             let tmpUrl = currentUrl.split('/');
             let previousePage = this.previousePage.split('/');
-            if (tmpUrl[2] !== previousePage[2]) {
+            if (tmpUrl[2] !== previousePage[2] || currentUrl === this.previousePage) {
                 return window.location.href = "/";
             }
             window.location.href = this.previousePage;
-            
+
         },
         validateCancelChanges() {
             this.cleanLocalStorage();
@@ -1335,7 +1247,7 @@ export default {
                     }
                 });
 
-                this.etdLinesData = this.etdLines.map(object => ({...object}));
+                this.etdLinesData = this.etdLines.map(object => ({ ...object }));
                 let cpt = 1;
                 this.etdLines.forEach((item, index) => {
                     if (item.childETDLines !== null && item.childETDLines.length > 0) {
@@ -1358,12 +1270,12 @@ export default {
             switch (this.user.type) {
                 case UserType.Vendor:
                     this.fields = [
-                        {prop: '_action', name: ' ', actionName: "actionsSlot", width: 70},
-                        {prop: '_action', name: ' ', actionName: "checkedSlot", width: 30},
-                        {prop: '_action', name: 'Stat.', actionName: "statusSlot", width: 40},
-                        {prop: 'navisionDocNo', name: 'PO N°', sortable: true},
-                        {prop: 'piNo', name: 'PI N°', sortable: true, class: 'text-primary'},
-                        {prop: 'itemReference', name: 'Item Ref.', sortable: true},
+                        { prop: '_action', name: ' ', actionName: "actionsSlot", width: 70 },
+                        { prop: '_action', name: ' ', actionName: "checkedSlot", width: 30 },
+                        { prop: '_action', name: 'Stat.', actionName: "statusSlot", width: 40 },
+                        { prop: 'navisionDocNo', name: 'PO N°', sortable: true },
+                        { prop: 'piNo', name: 'PI N°', sortable: true, class: 'text-primary' },
+                        { prop: 'itemReference', name: 'Item Ref.', sortable: true },
                         {
                             prop: '_action',
                             name: 'O. Qty',
@@ -1371,57 +1283,57 @@ export default {
                             class: 'is-numeric',
                             actionName: 'outstandingQtySlot'
                         },
-                        {prop: '_action', name: 'Delivery Date', sortable: true, actionName: 'deliveryDateSlot'},
-                        {prop: 'shipBy', name: 'Ship By', sortable: true},
-                        {prop: '_action', name: 'Tags', actionName: 'etdLineTagsSlot'},
+                        { prop: '_action', name: 'Delivery Date', sortable: true, actionName: 'deliveryDateSlot' },
+                        { prop: 'shipBy', name: 'Ship By', sortable: true },
+                        { prop: '_action', name: 'Tags', actionName: 'etdLineTagsSlot' },
                         {
                             prop: '_action',
                             name: 'Qty Confirmed',
                             actionName: 'outstandingQtyConfirmedSlot',
                             width: 82
                         },
-                        {prop: '_action', name: 'ETD Confirmed', actionName: 'etdDateConfirmedSlot', width: 140},
-                        {prop: '_action', name: 'Ship Confirmed', actionName: 'shipByConfirmedSlot', width: 90},
-                        {prop: 'orderType', name: 'Order Type', sortable: true, class: 'is-numeric'},
+                        { prop: '_action', name: 'ETD Confirmed', actionName: 'etdDateConfirmedSlot', width: 140 },
+                        { prop: '_action', name: 'Ship Confirmed', actionName: 'shipByConfirmedSlot', width: 90 },
+                        { prop: 'orderType', name: 'Order Type', sortable: true, class: 'is-numeric' },
                     ];
                     break;
                 case UserType.Purchaser:
                     this.fields = [
-                        {prop: '_action', name: ' ', actionName: "actionsSlot", width: 70},
-                        {prop: '_action', name: ' ', actionName: "checkedSlot", width: 30},
-                        {prop: '_action', name: 'Stat.', actionName: "statusSlot", width: 40},
-                        {prop: 'navisionDocNo', name: 'PO N°', sortable: true},
-                        {prop: 'piNo', name: 'PI N°', sortable: true, class: 'text-primary'},
-                        {prop: 'itemReference', name: 'Item Ref.', sortable: true},
+                        { prop: '_action', name: ' ', actionName: "actionsSlot", width: 70 },
+                        { prop: '_action', name: ' ', actionName: "checkedSlot", width: 30 },
+                        { prop: '_action', name: 'Stat.', actionName: "statusSlot", width: 40 },
+                        { prop: 'navisionDocNo', name: 'PO N°', sortable: true },
+                        { prop: 'piNo', name: 'PI N°', sortable: true, class: 'text-primary' },
+                        { prop: 'itemReference', name: 'Item Ref.', sortable: true },
                         {
                             prop: '_action',
                             name: 'O. Qty',
                             sortable: true,
-                            eClass: {'is-numeric': 'true'},
+                            eClass: { 'is-numeric': 'true' },
                             actionName: 'outstandingQtySlot'
                         },
-                        {prop: '_action', name: 'Deliv. Date', sortable: true, actionName: 'deliveryDateSlot'},
-                        {prop: 'shipBy', name: 'Ship By'},
-                        {prop: '_action', name: 'Tags', actionName: 'etdLineTagsSlot'},
+                        { prop: '_action', name: 'Deliv. Date', sortable: true, actionName: 'deliveryDateSlot' },
+                        { prop: 'shipBy', name: 'Ship By' },
+                        { prop: '_action', name: 'Tags', actionName: 'etdLineTagsSlot' },
                         {
                             prop: '_action',
                             name: 'Qty Confirmed',
                             actionName: 'outstandingQtyConfirmedSlot',
                             width: 82
                         },
-                        {prop: '_action', name: 'ETD Confirmed', actionName: 'etdDateConfirmedSlot', width: 140},
-                        {prop: '_action', name: 'Ship Confirmed', actionName: 'shipByConfirmedSlot', width: 90},
-                        {prop: 'orderType', name: 'Order Type', sortable: true, eClass: {'is-numeric': 'true'},},
-                        {prop: 'storeCode', name: 'Loc. Code', sortable: true},
+                        { prop: '_action', name: 'ETD Confirmed', actionName: 'etdDateConfirmedSlot', width: 140 },
+                        { prop: '_action', name: 'Ship Confirmed', actionName: 'shipByConfirmedSlot', width: 90 },
+                        { prop: 'orderType', name: 'Order Type', sortable: true, eClass: { 'is-numeric': 'true' }, },
+                        { prop: 'storeCode', name: 'Loc. Code', sortable: true },
                         {
                             prop: '_action',
                             name: 'Qty. Apr. Rgt',
                             actionName: 'availableQtySlot',
-                            eClass: {'is-numeric': 'true'},
+                            eClass: { 'is-numeric': 'true' },
                             width: 30
                         },
-                        {prop: 'yourReference', name: 'Your Ref.', sortable: true},
-                        {prop: '_action', name: 'Com.', actionName: 'commentsSlot', width: 30},
+                        { prop: 'yourReference', name: 'Your Ref.', sortable: true },
+                        { prop: '_action', name: 'Com.', actionName: 'commentsSlot', width: 30 },
                     ];
                     break;
             }
@@ -1447,7 +1359,7 @@ export default {
 
             this.countETDLinesDisplayed = tmpItems.length;
 
-            if(this.etdLinesData.length > 0) {
+            if (this.etdLinesData.length > 0) {
                 localStorage.setItem(this.getLocalStorageETDLinesDataItemName(), JSON.stringify(this.etdLinesData));
             }
             return tmpItems;
@@ -1492,4 +1404,14 @@ export default {
 @import "../../styles/app.scss";
 
 
+.etdTable {
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 500px) {
+    .filter-btn {
+        font-size: x-small;
+    }
+
+}
 </style>
